@@ -31,7 +31,7 @@ const { chains, publicClient } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'Allo Starter Kit',
+  appName: 'Munayfund',
   projectId: '31b0b6255ee5cc68ae76cab5fa96a9a0',
   chains,
 })
