@@ -17,7 +17,7 @@ export function Home() {
   const profileId = '0xbbc8d31c2b00a011912322740d238139ae8578a4dec18818408f720bdcb54b53'
   const _newApplicationData: TNewApplication = {
     name: 'MunayFund App',
-    website: 'https://MunayFund.com',
+    website: 'https://munayfund.vercel.app',
     description: 'MunayFund Description',
     email: 'wolfcito.eth+munayfund@gmail.com',
     requestedAmount: BigInt(1e12),

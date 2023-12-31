@@ -20,7 +20,7 @@ export const createPool = async () => {
   const metadata = {
     profileId: profileId,
     name: 'MunayFund',
-    website: 'https://MunayFund.com',
+    website: 'https://munayfund.vercel.app',
     description: 'The importance of support that goes beyond the material aspect',
     base64Image: '', // skipping the image for the demo
   }
