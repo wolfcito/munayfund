@@ -13,8 +13,15 @@ type LoginInput struct {
 	Password string `json:"password"`
 }
 
+type SignUpInput struct {
+	Username string `json:"username" bson:"username"`
+	Password string `json:"password" bson:"password"`
+	WalletID string `json:"wallet_id" bson:"wallet_id"`
+	Email    string `json:"email" bson:"email"`
+}
+
 type User struct {
-	ID       string `json:"id" bson:"_id"`
+	ID       string `json:"id" bson:"_id,omitempty"`
 	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
 	WalletID string `json:"wallet_id" bson:"wallet_id"`
@@ -36,7 +43,7 @@ type ProjectAdvance struct {
 
 // Project representa la estructura para almacenar información de proyectos en MongoDB.
 type Project struct {
-	ID          string           `json:"id" bson:"_id"`
+	ID          string           `json:"id" bson:"_id,omitempty"`
 	UserID      string           `json:"userId" bson:"userId"`
 	Title       string           `json:"title" bson:"title"`
 	Description string           `json:"description" bson:"description"`

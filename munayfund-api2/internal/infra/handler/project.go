@@ -42,7 +42,7 @@ func NewProjectHandler(projectService *service.ProjectService) *ProjectHandler {
 // @Param userId formData string true "ID del usuario creador"
 // @Param title formData string true "Título del proyecto"
 // @Param description formData string true "Descripción del proyecto"
-// @Param media formData file true "Archivos multimedia (imágenes y videos)" format=multi
+// @Param media formData file false "Archivos multimedia (imágenes y videos)" format=multi
 // @Success 200 {object} gin.H "Operación exitosa"
 // @Failure      400  {object}  httputil.HTTPError
 // @Failure      404  {object}  httputil.HTTPError
@@ -118,10 +118,8 @@ func (h *ProjectHandler) CreateProject(c *gin.Context) {
 	}
 
 	// Esperar a que todas las goroutines terminen
-	go func() {
-		wg.Wait()
-		close(errorsCh)
-	}()
+	wg.Wait()
+	defer close(errorsCh)
 
 	// Verificar si hubo errores durante la ejecución de las goroutines
 	select {
@@ -273,7 +271,7 @@ func (h *ProjectHandler) DeleteProject(c *gin.Context) {
 // @Failure      400  {object}  httputil.HTTPError
 // @Failure      404  {object}  httputil.HTTPError
 // @Failure      500  {object}  httputil.HTTPError
-// @Router /search [get]
+// @Router /projects/search [get]
 func (h *ProjectHandler) GetProjectsBySimilarName(c *gin.Context) {
 	partialName := c.Query("partialName")
 
@@ -307,7 +305,7 @@ func (h *ProjectHandler) GetProjectsBySimilarName(c *gin.Context) {
 // @Failure      400  {object}  httputil.HTTPError
 // @Failure      404  {object}  httputil.HTTPError
 // @Failure      500  {object}  httputil.HTTPError
-// @Router /{id} [put]
+// @Router /projects/{id} [put]
 func (h *ProjectHandler) UpdateProject(c *gin.Context) {
 	var updatedProject domain.Project
 
@@ -316,6 +314,8 @@ func (h *ProjectHandler) UpdateProject(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
+
+	updatedProject.ID = c.Param("id")
 
 	// Llamar al servicio para actualizar el proyecto
 	project, err := h.projectService.UpdateProject(c.Request.Context(), &updatedProject)

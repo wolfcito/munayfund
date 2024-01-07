@@ -10,6 +10,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -101,7 +102,9 @@ func (s *UserService) Signup(ctx context.Context, newUser *domain.User) (string,
 func (s *UserService) Update(ctx context.Context, user *domain.User) (*domain.User, error) {
 	// Verificar si el usuario existe
 	existingUser := &domain.User{}
-	err := s.repo.FindOne(ctx, existingUser, bson.M{"_id": user.ID})
+	userObjectID, _ := primitive.ObjectIDFromHex(user.ID)
+
+	err := s.repo.FindOne(ctx, existingUser, bson.M{"_id": userObjectID})
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			return nil, errors.New("Usuario no encontrado")
@@ -165,7 +168,9 @@ func (s *UserService) Update(ctx context.Context, user *domain.User) (*domain.Us
 func (s *UserService) Delete(ctx context.Context, userID string) error {
 	// Verificar si el usuario existe
 	existingUser := &domain.User{}
-	err := s.repo.FindOne(ctx, existingUser, bson.M{"_id": userID})
+	userObjectID, _ := primitive.ObjectIDFromHex(userID)
+
+	err := s.repo.FindOne(ctx, existingUser, bson.M{"_id": userObjectID})
 	if err != nil {
 		return errors.New("Usuario no encontrado")
 	}
