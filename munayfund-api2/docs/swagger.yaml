@@ -1,0 +1,642 @@
+basePath: /api/v1
+definitions:
+  gin.H:
+    additionalProperties: {}
+    type: object
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  munayfund-api2_internal_core_domain.LoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  munayfund-api2_internal_core_domain.Multimedia:
+    properties:
+      type:
+        type: string
+      url:
+        type: string
+    type: object
+  munayfund-api2_internal_core_domain.Project:
+    properties:
+      advances:
+        items:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.ProjectAdvance'
+        type: array
+      description:
+        type: string
+      id:
+        type: string
+      multimedia:
+        items:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.Multimedia'
+        type: array
+      title:
+        type: string
+      userId:
+        type: string
+    type: object
+  munayfund-api2_internal_core_domain.ProjectAdvance:
+    properties:
+      date:
+        type: string
+      details:
+        type: string
+      media:
+        items:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.Multimedia'
+        type: array
+    type: object
+  munayfund-api2_internal_core_domain.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      wallet_id:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8085
+info:
+  contact:
+    email: todefine@github.com
+    name: KaniKrafters
+    url: https://todefine.github.com
+  description: This API is in charge of leveraging some functionalities of munayFund
+    a next gen crowdfunding solution.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://swagger.io/terms/
+  title: Swagger MunayFund API WEB 2
+  version: "1.0"
+paths:
+  /{id}:
+    put:
+      consumes:
+      - application/json
+      description: Actualiza un proyecto existente con la información proporcionada.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del proyecto a actualizar
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Datos del proyecto a actualizar
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Proyecto actualizado exitosamente
+          schema:
+            $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Actualizar proyecto
+      tags:
+      - projects
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Este endpoint permite a un usuario autenticarse, proporcionando
+        el email y la contraseña.
+      operationId: loginUser
+      parameters:
+      - description: Credenciales de inicio de sesión del usuario
+        in: body
+        name: loginUser
+        required: true
+        schema:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Proyecto actualizado exitosamente
+          schema:
+            $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Realiza la autenticación de un usuario.
+      tags:
+      - users
+  /projects:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene una lista paginada de proyectos.
+      parameters:
+      - default: 10
+        description: Número máximo de proyectos por página
+        in: query
+        name: limit
+        type: integer
+      - default: 1
+        description: Número de página
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Lista de proyectos
+          schema:
+            items:
+              $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Obtener lista de proyectos
+      tags:
+      - projects
+  /projects/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Elimina un proyecto por su ID.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del proyecto a eliminar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Proyecto eliminado exitosamente
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Eliminar proyecto
+      tags:
+      - projects
+    get:
+      consumes:
+      - application/json
+      description: Obtiene los detalles de un proyecto específico.
+      parameters:
+      - description: ID del proyecto
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Detalles del proyecto
+          schema:
+            $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Obtener detalles del proyecto
+      tags:
+      - projects
+  /projects/{id}/media:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Este endpoint permite actualizar la multimedia de un proyecto existente.
+      operationId: updateProjectMultimedia
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del proyecto
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Archivos multimedia a agregar
+        in: formData
+        name: files
+        required: true
+        type: file
+      - description: Lista de objetos multimedia actualizados
+        in: body
+        name: updatedMultimedia
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/munayfund-api2_internal_core_domain.Multimedia'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Proyecto actualizado exitosamente
+          schema:
+            $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Actualiza la multimedia de un proyecto.
+      tags:
+      - projects
+  /projects/create:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Crea un nuevo proyecto con información multimedia.
+      operationId: create-project
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del usuario creador
+        in: formData
+        name: userId
+        required: true
+        type: string
+      - description: Título del proyecto
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Descripción del proyecto
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Archivos multimedia (imágenes y videos)
+        in: formData
+        name: media
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Operación exitosa
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Crear un nuevo proyecto
+      tags:
+      - projects
+  /projects/history/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene el historial de avances de proyectos para un usuario específico.
+      operationId: get-history
+      parameters:
+      - description: ID del proyecto
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Historial de proyectos
+          schema:
+            items:
+              $ref: '#/definitions/munayfund-api2_internal_core_domain.ProjectAdvance'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Obtener historial de proyectos
+      tags:
+      - projects-history
+    put:
+      consumes:
+      - application/json
+      description: Agrega un nuevo avance al historial de proyectos para un proyecto
+        específico.
+      operationId: update-history
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del proyecto
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Datos del avance del historial a agregar
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.ProjectAdvance'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Historial actualizado de proyectos
+          schema:
+            items:
+              $ref: '#/definitions/munayfund-api2_internal_core_domain.ProjectAdvance'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Actualizar historial de proyectos
+      tags:
+      - projects-history
+  /search:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene la lista de proyectos cuyos nombres son similares al proporcionado.
+      parameters:
+      - description: Nombre parcial del proyecto a buscar
+        in: query
+        name: partialName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Lista de proyectos
+          schema:
+            items:
+              $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Obtener proyectos por nombre similar
+      tags:
+      - projects
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Este endpoint permite a un usuario registrarse proporcionando la
+        información requerida, incluyendo email y contraseña.
+      operationId: signUpUser
+      parameters:
+      - description: Información del nuevo usuario
+        in: body
+        name: signUpUser
+        required: true
+        schema:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token de autenticación generado
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Registra a un nuevo usuario en el sistema.
+      tags:
+      - users
+  /user/{id}:
+    delete:
+      description: Este endpoint permite a un usuario eliminar su cuenta proporcionando
+        su ID.
+      operationId: deleteUser
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del usuario a eliminar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Respuesta de éxito al eliminar el usuario
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Elimina un usuario existente.
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Este endpoint permite a un usuario actualizar su información proporcionando
+        los datos requeridos.
+      operationId: updateUser
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del usuario a actualizar
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Información actualizada del usuario
+        in: body
+        name: updateUser
+        required: true
+        schema:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Usuario actualizado
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Actualiza la información del usuario.
+      tags:
+      - users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

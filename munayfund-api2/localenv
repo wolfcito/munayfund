@@ -1,0 +1,8 @@
+#llena esto antes de ejecutar los containers
+export ROOT_USERNAME=
+export ROOT_PWD=
+export SECRETKEY=
+export PORT=
+export MUNAY_USERNAME=
+export MUNAY_PASSWORD=
+export MONGODB_CONNECTION_URI=

@@ -1,0 +1,60 @@
+version: '3.9'
+services:
+  db:
+    image: mongo
+    container_name: munayfund-mongodb
+    networks:
+      - services
+    restart: always
+    ports:
+      - 27017:27017
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${ROOT_PWD}
+  db-client:
+    image: mongo-express
+    networks:
+      - services
+    restart: always
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ROOT_PWD}
+      - ME_CONFIG_MONGODB_URL=mongodb://${ROOT_USERNAME}:${ROOT_PWD}@db:27017/
+    depends_on:
+      - db
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-container
+    env_file:
+      - .env
+    networks:
+      - services
+    environment:
+      SECRETKEY: ${SECRETKEY:-test-key}
+      PORT: ${PORT:-8080}
+      MONGODB_CONNECTION_URI: "mongodb://${MUNAY_USERNAME:-test}:${MUNAY_PASSWORD:-test}@db:27017"
+      IPFSURL: ${IPFSURL:-your_default_ipfs_url}
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      - db
+      - db-client
+
+volumes:
+  mongodb-data:
+    driver: local
+  mongodb-log:
+    driver: local
+
+networks:
+  services:
+    name: ${MONGO_NETWORK:-mongodb.network}
