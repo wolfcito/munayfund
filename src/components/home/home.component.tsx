@@ -7,14 +7,17 @@ import { createProfile } from '@/sdk/registry'
 import { chainData, wagmiConfigData } from '@/services/wagmi'
 import { Allocation } from '@allo-team/allo-v2-sdk/dist/strategies/MicroGrantsStrategy/types'
 import { Status } from '@allo-team/allo-v2-sdk/dist/strategies/types'
-import { ConnectButton, RainbowKitProvider, midnightTheme } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, midnightTheme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { WagmiConfig } from 'wagmi'
-import { ButtonNeon, ButtonSimple } from '../button'
+import { ButtonNeon } from '@/components/button'
 import Image from 'next/image'
+import { Header } from '@/components/header'
+import { Projects } from '@/components/projects'
+import { Title } from '@/components/title'
+import { Article } from '@/components/article/'
 import Link from 'next/link'
-import { Header } from '../header'
-import clsx from 'clsx'
+import { TEAM } from '@/constants'
 
 export function Home() {
   // Set this here so we dont have to create a new profile every time and we are not managing state in this demo.
@@ -119,18 +122,37 @@ export function Home() {
               </div>
             </div>
           </Article>
+          <Article className="flex-col">
+            <Title label="Projects Hub" />
+            <Projects />
+          </Article>
 
-          <div className="mt-40">Powered by @Kanicrafters</div>
+          <Article className="flex-col">
+            <Title label="Our team" />
+
+            <div className="flex gap-5">
+              {TEAM.map(member => {
+                return (
+                  <Link href={member.repo} key={window.crypto.randomUUID()}>
+                    <figure>
+                      <Image
+                        src={member.image}
+                        alt={`${member.name} avatar`}
+                        width={100}
+                        height={100}
+                        className="h-60 w-auto rounded-lg"
+                      />
+                      <div>{member.name} </div>
+                    </figure>
+                  </Link>
+                )
+              })}
+            </div>
+          </Article>
+
+          <div className="self-center mt-40 mb-5">Powered by @Kanicrafters</div>
         </main>
       </RainbowKitProvider>
     </WagmiConfig>
   )
-}
-
-function Article({ children, className }: { children?: React.ReactNode; className?: string }) {
-  return <article className={clsx('flex w-full mt-20 items-center justify-center', className)}>{children}</article>
-}
-
-function Title({ label, className }: { label: string; className?: string }) {
-  return <h2 className={clsx('text-balance font-bold text-[4em] leading-tight', className)}>{label}</h2>
 }
