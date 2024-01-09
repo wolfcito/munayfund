@@ -13,7 +13,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 export function Home() {
   return (
     <WagmiConfig config={wagmiConfigData}>
-      <RainbowKitProvider chains={chainData} modalSize="wide" theme={midnightTheme()} coolMode>
+      <RainbowKitProvider chains={chainData} modalSize="compact" theme={midnightTheme()} coolMode>
         <main className="flex flex-col my-2 mx-7 min-h-screen">
           <Header />
           <Landing />
