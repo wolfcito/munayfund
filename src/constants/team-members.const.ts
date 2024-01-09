@@ -1,5 +1,26 @@
 export const TEAM = [
-  { name: 'Wolfcito', image: '/team/wolfcito.png', repo: 'https://github.com/wolfcito' },
-  { name: 'Daniel', image: '/team/daniel.png', repo: 'https://github.com/daniel0ar' },
-  { name: 'Manuel', image: '/team/manuel.png', repo: 'https://github.com/ManuelLecaro' },
+  {
+    name: 'Luis Fernando (Wolfcito)',
+    role: 'Software Developer Architect',
+    imageUrl: '/team/wolfcito.png',
+    github: 'https://github.com/wolfcito',
+    twitterUrl: 'https://twitter.com/AKAwolfcito',
+    linkedinUrl: 'https://www.linkedin.com/in/wolfcito/',
+  },
+  {
+    name: 'Daniel',
+    role: 'Web3 Developer',
+    imageUrl: '/team/daniel.png',
+    github: 'https://github.com/daniel0ar',
+    twitterUrl: '#',
+    linkedinUrl: '#',
+  },
+  {
+    name: 'Manuel',
+    role: 'Web3 Developer',
+    imageUrl: '/team/manuel.png',
+    github: 'https://github.com/ManuelLecaro',
+    twitterUrl: '#',
+    linkedinUrl: '#',
+  },
 ]
