@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export function Header() {
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex w-full items-center justify-between p-6">
       <Link href={'/'} className="text-limelight text-xl">
         <Image src={'/munayfund-logo.png'} alt="Munay logo" width={50} height={50} className="h-7 w-auto" />
       </Link>

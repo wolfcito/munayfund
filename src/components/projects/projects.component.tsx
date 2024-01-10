@@ -5,6 +5,7 @@ import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import styles from './projects.module.css'
+import Link from 'next/link'
 
 export function Projects() {
   return (
@@ -27,8 +28,10 @@ export function Projects() {
         className={styles.swiper}
       >
         <SwiperSlide className={styles.swiperSlide}>
-          <h5>Saving the world </h5>
-          <Image src="/projects/project001.jpg" alt="project" width={100} height={150} />
+          <Link href={"projects/1"}>
+            <h5>Saving the world </h5>
+            <Image src="/projects/project001.jpg" alt="project" width={100} height={150} />
+          </Link>
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
           <h5>Minecraft Chaos</h5>
