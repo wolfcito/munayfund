@@ -56,6 +56,17 @@ definitions:
           $ref: '#/definitions/munayfund-api2_internal_core_domain.Multimedia'
         type: array
     type: object
+  munayfund-api2_internal_core_domain.SignUpInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      wallet_id:
+        type: string
+    type: object
   munayfund-api2_internal_core_domain.User:
     properties:
       email:
@@ -72,7 +83,7 @@ definitions:
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
-host: localhost:8085
+host: localhost:8080
 info:
   contact:
     email: todefine@github.com
@@ -87,52 +98,6 @@ info:
   title: Swagger MunayFund API WEB 2
   version: "1.0"
 paths:
-  /{id}:
-    put:
-      consumes:
-      - application/json
-      description: Actualiza un proyecto existente con la información proporcionada.
-      parameters:
-      - description: Authorization
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: ID del proyecto a actualizar
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Datos del proyecto a actualizar
-        in: body
-        name: project
-        required: true
-        schema:
-          $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Proyecto actualizado exitosamente
-          schema:
-            $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-      security:
-      - ApiKeyAuth: []
-      summary: Actualizar proyecto
-      tags:
-      - projects
   /login:
     post:
       consumes:
@@ -281,6 +246,51 @@ paths:
       summary: Obtener detalles del proyecto
       tags:
       - projects
+    put:
+      consumes:
+      - application/json
+      description: Actualiza un proyecto existente con la información proporcionada.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID del proyecto a actualizar
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Datos del proyecto a actualizar
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Proyecto actualizado exitosamente
+          schema:
+            $ref: '#/definitions/munayfund-api2_internal_core_domain.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Actualizar proyecto
+      tags:
+      - projects
   /projects/{id}/media:
     put:
       consumes:
@@ -365,7 +375,6 @@ paths:
       - description: Archivos multimedia (imágenes y videos)
         in: formData
         name: media
-        required: true
         type: file
       produces:
       - application/json
@@ -476,7 +485,7 @@ paths:
       summary: Actualizar historial de proyectos
       tags:
       - projects-history
-  /search:
+  /projects/search:
     get:
       consumes:
       - application/json
@@ -524,7 +533,7 @@ paths:
         name: signUpUser
         required: true
         schema:
-          $ref: '#/definitions/munayfund-api2_internal_core_domain.User'
+          $ref: '#/definitions/munayfund-api2_internal_core_domain.SignUpInput'
       produces:
       - application/json
       responses:

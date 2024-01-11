@@ -189,8 +189,7 @@ const docTemplate = `{
                         "type": "file",
                         "description": "Archivos multimedia (imágenes y videos)",
                         "name": "media",
-                        "in": "formData",
-                        "required": true
+                        "in": "formData"
                     }
                 ],
                 "responses": {
@@ -348,6 +347,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/projects/search": {
+            "get": {
+                "description": "Obtiene la lista de proyectos cuyos nombres son similares al proporcionado.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "projects"
+                ],
+                "summary": "Obtener proyectos por nombre similar",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nombre parcial del proyecto a buscar",
+                        "name": "partialName",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de proyectos",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "description": "Obtiene los detalles de un proyecto específico.",
@@ -373,6 +425,75 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Detalles del proyecto",
+                        "schema": {
+                            "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Actualiza un proyecto existente con la información proporcionada.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "projects"
+                ],
+                "summary": "Actualizar proyecto",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID del proyecto a actualizar",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Datos del proyecto a actualizar",
+                        "name": "project",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proyecto actualizado exitosamente",
                         "schema": {
                             "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
                         }
@@ -540,59 +661,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/search": {
-            "get": {
-                "description": "Obtiene la lista de proyectos cuyos nombres son similares al proporcionado.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "projects"
-                ],
-                "summary": "Obtener proyectos por nombre similar",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Nombre parcial del proyecto a buscar",
-                        "name": "partialName",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Lista de proyectos",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/httputil.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/httputil.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/httputil.HTTPError"
-                        }
-                    }
-                }
-            }
-        },
         "/signup": {
             "post": {
                 "description": "Este endpoint permite a un usuario registrarse proporcionando la información requerida, incluyendo email y contraseña.",
@@ -614,7 +682,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/munayfund-api2_internal_core_domain.User"
+                            "$ref": "#/definitions/munayfund-api2_internal_core_domain.SignUpInput"
                         }
                     }
                 ],
@@ -775,77 +843,6 @@ const docTemplate = `{
                     }
                 }
             }
-        },
-        "/{id}": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Actualiza un proyecto existente con la información proporcionada.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "projects"
-                ],
-                "summary": "Actualizar proyecto",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "ID del proyecto a actualizar",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Datos del proyecto a actualizar",
-                        "name": "project",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Proyecto actualizado exitosamente",
-                        "schema": {
-                            "$ref": "#/definitions/munayfund-api2_internal_core_domain.Project"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/httputil.HTTPError"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/httputil.HTTPError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/httputil.HTTPError"
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {
@@ -934,6 +931,23 @@ const docTemplate = `{
                 }
             }
         },
+        "munayfund-api2_internal_core_domain.SignUpInput": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "wallet_id": {
+                    "type": "string"
+                }
+            }
+        },
         "munayfund-api2_internal_core_domain.User": {
             "type": "object",
             "properties": {
@@ -971,7 +985,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8085",
+	Host:             "localhost:8080",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "Swagger MunayFund API WEB 2",

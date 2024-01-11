@@ -25,6 +25,7 @@ type ProjectRepository interface {
 type HistoryRepository interface {
 	InsertOne(ctx context.Context, history interface{}, opts ...*options.InsertOneOptions) error
 	Find(ctx context.Context, target interface{}, filter interface{}, opts ...*options.FindOptions) error
+	FindOne(ctx context.Context, target interface{}, filter interface{}, opts ...*options.FindOneOptions) error
 	UpdateOne(ctx context.Context, filter interface{}, update interface{}, opts ...*options.UpdateOptions) error
 }
 

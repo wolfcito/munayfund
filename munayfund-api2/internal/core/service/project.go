@@ -25,7 +25,8 @@ func NewProjectService(repo port.ProjectRepository, multimediaRepo port.Multimed
 }
 
 func (p *ProjectService) GetProject(ctx context.Context, projectID string) (*domain.Project, error) {
-	filter := bson.M{"_id": projectID}
+	projectObjectID, _ := primitive.ObjectIDFromHex(projectID)
+	filter := bson.M{"_id": projectObjectID}
 
 	// Llamar al repositorio para obtener el proyecto
 	project := &domain.Project{}
@@ -73,7 +74,10 @@ func (p *ProjectService) NewProject(ctx context.Context, project *domain.Project
 
 func (p *ProjectService) UpdateProject(ctx context.Context, project *domain.Project) (*domain.Project, error) {
 	existingProject := &domain.Project{}
-	err := p.repo.FindOne(ctx, existingProject, bson.M{"_id": project.ID})
+
+	projectObjectID, _ := primitive.ObjectIDFromHex(project.ID)
+
+	err := p.repo.FindOne(ctx, existingProject, bson.M{"_id": projectObjectID})
 	if err != nil {
 		return nil, domain.ErrProjectNotFound
 	}
@@ -94,13 +98,16 @@ func (p *ProjectService) UpdateProject(ctx context.Context, project *domain.Proj
 
 func (p *ProjectService) DeleteProject(ctx context.Context, projectID string) error {
 	existingProject := &domain.Project{}
-	err := p.repo.FindOne(ctx, existingProject, bson.M{"_id": projectID})
+
+	projectObjectID, _ := primitive.ObjectIDFromHex(projectID)
+
+	err := p.repo.FindOne(ctx, existingProject, bson.M{"_id": projectObjectID})
 	if err != nil {
 		return domain.ErrProjectNotFound
 	}
 
 	// Llamar al repositorio para eliminar el proyecto
-	err = p.repo.DeleteOne(ctx, bson.M{"_id": projectID})
+	err = p.repo.DeleteOne(ctx, bson.M{"_id": projectObjectID})
 	if err != nil {
 		return errors.New("Error al eliminar el proyecto en la base de datos")
 	}
@@ -129,7 +136,10 @@ func (p *ProjectService) UploadMultimedia(ctx context.Context, filePath string) 
 // UpdateProjectMultimedia actualiza la multimedia de un proyecto
 func (p *ProjectService) UpdateProjectMultimedia(ctx context.Context, projectID string, updatedMultimediaList []domain.Multimedia) (*domain.Project, error) {
 	existingProject := &domain.Project{}
-	err := p.repo.FindOne(ctx, existingProject, bson.M{"_id": projectID})
+
+	projectObjectID, _ := primitive.ObjectIDFromHex(projectID)
+
+	err := p.repo.FindOne(ctx, existingProject, bson.M{"_id": projectObjectID})
 	if err != nil {
 		return nil, errors.New("Proyecto no encontrado")
 	}

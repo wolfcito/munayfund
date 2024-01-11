@@ -39,7 +39,7 @@ func (ra *RestAPI) setupEndpoints(apiGroup *gin.RouterGroup) {
 
 	projectsHistoryAPIGroup := projectsAPIGroup.Group("/history")
 
-	projectsHistoryAPIGroup.PUT("/", ra.Components.HistoryHandler.UpdateHistory)
+	projectsHistoryAPIGroup.PUT("/:id", ra.Components.HistoryHandler.UpdateHistory)
 	projectsHistoryAPIGroup.GET("/:id", ra.Components.HistoryHandler.GetHistory)
 
 	apiGroup.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
