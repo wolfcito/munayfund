@@ -62,7 +62,7 @@ func (h *UserHandler) Login(c *gin.Context) {
 // @Tags users
 // @Produce json
 // @Accept json
-// @Param signUpUser body domain.User true "Información del nuevo usuario"
+// @Param signUpUser body domain.SignUpInput true "Información del nuevo usuario"
 // @Success 200 {object} gin.H "Token de autenticación generado"
 // @Failure      400  {object}  httputil.HTTPError
 // @Failure      404  {object}  httputil.HTTPError
