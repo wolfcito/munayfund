@@ -25,7 +25,7 @@ const Dashboard = () => {
       <div className="p-6 md:p-14">
         <div className="flex flex-row justify-between">
           <h3 className="text-2xl font-semibold">Created Pools</h3>
-          <Link href="/" className='border border-limelight rounded-full px-4 py-2 hover:shadow-md hover:shadow-lime-600'>New Pool</Link>
+          <Link href="/newjar" className='border border-limelight rounded-full px-4 py-2 hover:shadow-md hover:shadow-lime-600'>New Pool</Link>
         </div>
         <div className='mt-6 sm:grid sm:grid-cols-3 sm:gap-6'>
           {pools.map((pool, index) => (

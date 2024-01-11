@@ -5,7 +5,7 @@ import Image from 'next/image'
 export function Strategy() {
   return (
     <Article className="min-h-[600px]">
-      <Image src="/munayfund.png" alt="logo" width={100} height={300} className="h-auto w-52 mr-20" />
+      <Image src="/cookiejar.png" alt="logo" width={100} height={300} className="h-auto w-[300px] mr-20" />
 
       <div className="flex flex-col max-w-lg space-y-4">
         <Title label="Our very own Strategy" />

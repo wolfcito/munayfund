@@ -22,11 +22,8 @@ const Profile = () => {
                   <h1 className="text-xl font-bold">Wolfcito</h1>
                   <p className="text-gray-700">Software Developer Architect</p>
                   <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                    <a href="#" className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
-                      Contact
-                    </a>
-                    <a href="#" className="text-gray-700 py-2 px-4 rounded underline">
-                      Report
+                    <a href="#" className="border border-limelight hover:shadowmd hover:shadow-limelight text-white py-2 px-4 rounded-full">
+                      Create Profile
                     </a>
                   </div>
                 </div>
