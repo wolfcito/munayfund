@@ -36,7 +36,6 @@ func (s *HistoryService) GetHistoryList(ctx context.Context, id string) ([]domai
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			return nil, errors.New("Historial no encontrado")
 		}
-
 		return nil, errors.New("Error al obtener el historial desde la base de datos")
 	}
 

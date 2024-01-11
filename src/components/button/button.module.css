@@ -1,0 +1,58 @@
+.button {
+  border: none;
+  position: relative;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 7px 15px;
+  background-color: #000;
+  font-family: 'Ropa Sans', sans-serif;
+}
+
+.button::after,
+.button::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(var(--rotate),
+      rgba(154, 245, 1, 0) 0%,
+      rgba(154, 245, 1, .25) 25%,
+      rgba(154, 245, 1, .5) 50%,
+      rgba(154, 245, 1, .8) 80%,
+      rgba(154, 245, 1, 1) 100%);
+  width: 105%;
+  height: 110%;
+  left: -2.5%;
+  top: -5%;
+  border-radius: 10px;
+  z-index: -1;
+  transition: --rotate 9999s linear;
+}
+
+.button:hover::after,
+.button:hover::before {
+  --rotate: 3600deg;
+  transition: --rotate 20s linear;
+}
+
+.button:hover::before {
+  animation: fade 1.2s;
+}
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 130deg;
+  inherits: false;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+    transform: sacale(1);
+    filter: blur(20px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: sacale(1.4);
+    filter: blur(30px);
+  }
+}

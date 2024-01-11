@@ -1,22 +1,23 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'MunayFund',
-  description: 'The importance of support that goes beyond the material aspect',
-}
+import { chainData, wagmiConfigData } from '@/services/wagmi'
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { WagmiConfig } from 'wagmi'
+import '@rainbow-me/rainbowkit/styles.css'
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={'font-poppins'}>
+        <WagmiConfig config={wagmiConfigData}>
+          <RainbowKitProvider chains={chainData} modalSize="compact" coolMode>
+            {children}
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </body>
     </html>
   )
 }
 
 interface LayoutProps {
-  children: React.ReactNode
+  readonly children: React.ReactNode
 }

@@ -1,0 +1,39 @@
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.swiperSlide {
+  background-position: center;
+  background-size: cover;
+  width: 200px;
+  height: 380px;
+  border-width: 1px;
+  border-radius: 10px;
+  text-align: -webkit-center;
+  animation: pulsate 1.5s infinite alternate;
+  box-shadow: 0 0 .2rem #fff,
+    0 0 .2rem #fff,
+    0 0 1rem #a4fe13,
+    0 0 0.5rem #a4fe13,
+    0 0 1.5rem #a4fe13,
+    inset 0 0 1.3rem #a4fe13;
+}
+
+.swiperSlide h5 {
+  border-width: 0px 0px 1px 0px;
+  margin-bottom: 10px;
+  padding: 5px;
+  position: absolute;
+  background: rgba(0, 0, 0, .2);
+
+}
+
+.swiperSlide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
