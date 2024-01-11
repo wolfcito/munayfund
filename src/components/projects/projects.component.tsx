@@ -6,6 +6,7 @@ import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import styles from './projects.module.css'
 import Link from 'next/link'
+import { PROJECTS } from '@/constants'
 
 export function Projects() {
   return (
@@ -28,26 +29,34 @@ export function Projects() {
         className={styles.swiper}
       >
         <SwiperSlide className={styles.swiperSlide}>
-          <Link href={"projects/1"}>
-            <h5>Saving the world </h5>
-            <Image src="/projects/project001.jpg" alt="project" width={100} height={150} />
+          <Link href={'projects/1'}>
+            <h5>{PROJECTS[1]['name-project']}</h5>
+            <Image src={PROJECTS[1]['image']} alt="project" width={100} height={150} />
           </Link>
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
-          <h5>Minecraft Chaos</h5>
-          <Image src="/projects/project002.jpg" alt="project" width={100} height={150} />
+          <Link href={'projects/1'}>
+            <h5>{PROJECTS[2]['name-project']}</h5>
+            <Image src={PROJECTS[2]['image']} alt="project" width={100} height={150} />
+          </Link>
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
-          <h5>I am not X</h5>
-          <Image src="/projects/project003.jpg" alt="project" width={100} height={150} />
+          <Link href={'projects/3'}>
+            <h5>{PROJECTS[3]['name-project']}</h5>
+            <Image src={PROJECTS[3]['image']} alt="project" width={100} height={150} />
+          </Link>
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
-          <h5>Completion </h5>
-          <Image src="/projects/project004.jpg" alt="project" width={100} height={150} />
+          <Link href={'projects/4'}>
+            <h5>{PROJECTS[4]['name-project']}</h5>
+            <Image src={PROJECTS[4]['image']} alt="project" width={100} height={150} />
+          </Link>
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
-          <h5>Green Moon</h5>
-          <Image src="/projects/project005.jpg" alt="project" width={100} height={150} />
+          <Link href={'projects/5'}>
+            <h5>{PROJECTS[5]['name-project']}</h5>
+            <Image src={PROJECTS[5]['image']} alt="project" width={100} height={150} />
+          </Link>
         </SwiperSlide>
       </Swiper>
     </div>
