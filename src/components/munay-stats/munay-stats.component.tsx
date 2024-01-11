@@ -4,7 +4,7 @@ import { Title } from '@/components/title'
 
 export function MunayStats() {
   return (
-    <Article className="min-h-screen">
+    <Article className="min-h-[700px]">
       <div className="flex flex-col max-w-lg space-y-4">
         <Title label="About Munayfund" />
 

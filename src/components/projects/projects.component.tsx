@@ -35,7 +35,7 @@ export function Projects() {
           </Link>
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
-          <Link href={'projects/1'}>
+          <Link href={'projects/2'}>
             <h5>{PROJECTS[2]['name-project']}</h5>
             <Image src={PROJECTS[2]['image']} alt="project" width={100} height={150} />
           </Link>

@@ -4,6 +4,7 @@ import { Team } from '@/components/team'
 import { ProjectsHub } from '@/components/projects-hub'
 import { MunayStats } from '@/components/munay-stats'
 import { Landing } from '@/components/landing'
+import { Strategy } from '../strategy'
 
 export function Home() {
   return (
@@ -12,6 +13,7 @@ export function Home() {
       <Landing />
       <ProjectsHub />
       <MunayStats />
+      <Strategy/>
       <Team />
       <div className="self-center mt-40 mb-5">Powered by @Kanicrafters</div>
     </main>

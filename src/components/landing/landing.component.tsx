@@ -33,12 +33,11 @@ export function Landing() {
   return (
     <Article>
       <div className="flex flex-col max-w-2xl">
-        <Title label="Transparent, Secure, and Fueled by Innovation" />
+        <Title label="Fund actions that matter" />
 
-        <p className="font-merienda text-2xl py-10">Decentralizing Dreams, Empowering Innovations.</p>
+        <p className="font-semibold text-2xl py-10">Transparent, Secure, and Fueled by Giving.</p>
         <p className="text-slate-300 py-10">
-          Explore, Fund, Decide - Revolutionizing collective financing with Arbitrum and Allo Protocol. Join us in a
-          seamless journey of creation, funding, and decision-making.
+          Explore, Fund, Decide - Revolutionizing collective financing with Arbitrum and Allo Protocol. Empowering real world help.
         </p>
         <p className="py-5 space-x-5">
           <ButtonNeon
