@@ -9,7 +9,10 @@ export function Header() {
       <Link href={'/'} className="text-limelight text-xl">
         <Image src={'/munayfund-logo.png'} alt="Munay logo" width={50} height={50} className="h-7 w-auto" />
       </Link>
-      <div className='flex items-center'>
+      <div className="flex items-center">
+        <Link href={'/jars'} className="text-md flex mr-10 hover:underline">
+          Vote!
+        </Link>
         <Link href={'/dashboard'} className="text-md flex mr-10 hover:underline">
           Dashboard
         </Link>
