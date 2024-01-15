@@ -1,5 +1,7 @@
 # Munayfund
 
+![list](/public/app-screenshots/home.png)
+
 Our crowdfunding platform, powered by Arbitrum and Allo Protocol, redefines the
 decentralized funding experience. It enables users to create and fund projects
 using cryptocurrencies on the Arbitrum network. With a common fund backed by
@@ -32,6 +34,32 @@ We manage a logic of founding of two sides, one via crowfounding and other with 
 This allows for verification of work before distributing the funds, thus filtering out abandoned or scam projects.
 
 ## App Screenshots
+### Home Page
+
+![home](/public/app-screenshots/home.png)
+![about](/public/app-screenshots/home-2.png)
+
+### Create Allo Profiles
+
+![profile](/public/app-screenshots/profile.png)
+
+### Admin Dashboard (Jar Creator)
+
+![dashboard](/public/app-screenshots/dashboard.png)
+
+### View Jars
+
+![view-jars](/public/app-screenshots/jars.png)
+![jar-details](/public/app-screenshots/jardetails.png)
+
+### Create Jars
+
+![new-jar](/public/app-screenshots/newjar.png)
+![new-jar-2](/public/app-screenshots/newjar-2.png)
+
+### Vote on projects
+
+![project-details](/public/app-screenshots/projectdetails.png)
 
 ## Resources
 - [Allo Protocol Docs](https://docs.allo.gitcoin.co/)
